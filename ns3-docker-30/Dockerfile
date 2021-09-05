@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
 
-MAINTAINER Riki Bando <ricky1231@g.ecc.u-tokyo.ac.jp>
-
 LABEL Description="Docker image for NS-3 Network Simulator"
 
 # NS-3
@@ -13,16 +11,17 @@ COPY . /usr
 
 # Install needed packages
 RUN set -x && \
-    apt-get update && \
+    apt update && \
+    apt install -y tzdata && \
     sh requirements.sh && \
     # Configure and compile NS-3
-    cd /usr/ns-allinone-3.30/ns-3.30 && \
+    cd /usr/ns-allinone-3.34/ns-3.34 && \
     ./waf configure --build-profile=debug --enable-examples --enable-tests && \
     ./waf && \
     # For visualizer
-    cd /usr/ns-allinone-3.30/ && \
-    wget https://files.pythonhosted.org/packages/e7/9f/32655239a4d978e92dd59233c4a3fd8e064ef1193487f58c889fe116b780/PyBindGen-0.20.1.tar.gz && \
-    tar -xf PyBindGen-0.20.1.tar.gz && \
+    cd /usr/ns-allinone-3.34/ && \
+    wget https://files.pythonhosted.org/packages/7a/c6/14a9359621000ee5b7d5620af679be23f72c0ed17887b15228327427f97d/PyBindGen-0.22.0.tar.gz && \
+    tar -xf PyBindGen-0.22.0.tar.gz && \
     # For click
     git clone https://github.com/kohler/click.git && \
     cd click && \
@@ -40,11 +39,11 @@ RUN set -x && \
     ./waf configure && \
     ./waf build && \
     # For integration
-    cd /usr/ns-allinone-3.30/ns-3.30 && \
-    ./waf configure --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.20.1 --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow && \
+    cd /usr/ns-allinone-3.34/ns-3.34 && \
+    ./waf configure --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.22.0 --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow && \
     ./waf build && \
     # Make symlink
-    ln -s /usr/ns-allinone-3.30/ns-3.30/ /usr/ns3/ && \
+    ln -s /usr/ns-allinone-3.34/ns-3.34/ /usr/ns3/ && \
     # Cleanup
-    apt-get clean && \
+    apt clean && \
     rm -rf /var/lib/apt
