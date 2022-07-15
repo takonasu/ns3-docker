@@ -15,13 +15,13 @@ RUN set -x && \
     apt install -y tzdata && \
     sh requirements.sh && \
     # Configure and compile NS-3
-    cd /usr/ns-allinone-3.34/ns-3.34 && \
+    cd /usr/ns-allinone-3.35/ns-3.35 && \
     ./waf configure --build-profile=debug --enable-examples --enable-tests && \
     ./waf && \
     # For visualizer
-    cd /usr/ns-allinone-3.34/ && \
-    wget https://files.pythonhosted.org/packages/7a/c6/14a9359621000ee5b7d5620af679be23f72c0ed17887b15228327427f97d/PyBindGen-0.22.0.tar.gz && \
-    tar -xf PyBindGen-0.22.0.tar.gz && \
+    cd /usr/ns-allinone-3.35/ && \
+    wget https://github.com/gjcarneiro/pybindgen/archive/refs/tags/0.22.1.tar.gz && \
+    tar -xf 0.22.1.tar.gz && \
     # For click
     git clone https://github.com/kohler/click.git && \
     cd click && \
@@ -39,11 +39,11 @@ RUN set -x && \
     ./waf configure && \
     ./waf build && \
     # For integration
-    cd /usr/ns-allinone-3.34/ns-3.34 && \
+    cd /usr/ns-allinone-3.35/ns-3.35 && \
     ./waf configure --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.22.0 --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow && \
     ./waf build && \
     # Make symlink
-    ln -s /usr/ns-allinone-3.34/ns-3.34/ /usr/ns3/ && \
+    ln -s /usr/ns-allinone-3.35/ns-3.35/ /usr/ns3/ && \
     # Cleanup
     apt clean && \
     rm -rf /var/lib/apt
