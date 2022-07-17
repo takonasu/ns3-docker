@@ -40,7 +40,7 @@ RUN set -x && \
     ./waf build && \
     # For integration
     cd /usr/ns-allinone-3.35/ns-3.35 && \
-    ./waf configure --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.22.0 --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow && \
+    ./waf configure --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.22.1 --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow && \
     ./waf build && \
     # Make symlink
     ln -s /usr/ns-allinone-3.35/ns-3.35/ /usr/ns3/ && \
