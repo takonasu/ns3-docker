@@ -44,6 +44,8 @@ RUN set -x && \
     ./waf build && \
     # Make symlink
     ln -s /usr/ns-allinone-3.35/ns-3.35/ /usr/ns3/ && \
+    ./waf configure --build-profile=debug && \
+    ./waf build && \
     # Cleanup
     apt clean && \
     rm -rf /var/lib/apt
