@@ -12,7 +12,7 @@ COPY . /usr
 # Install needed packages
 RUN set -x && \
     apt update && \
-    apt install -y tzdata && \
+    apt install -y tzdata gdb&& \
     sh requirements.sh && \
     # Configure and compile NS-3
     cd /usr/ns-allinone-3.35/ns-3.35 && \
