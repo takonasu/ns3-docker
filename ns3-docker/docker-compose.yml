@@ -7,5 +7,4 @@ services:
     command: bash -c "sleep infinity"
     volumes:
       - ../share/scratch:/usr/ns-allinone-3.35/ns-3.35/scratch
-      - ~/.Xauthority:/root/.Xauthority
     working_dir: /usr/ns-allinone-3.35/ns-3.35
